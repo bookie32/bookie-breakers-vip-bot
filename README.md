@@ -1,30 +1,53 @@
-# BOOKIE BREAKERS bot source backup
+# BOOKIE BREAKERS Discord bot
 
-This archive contains the Python source files recovered/uploaded in this chat.
+This repository contains the BOOKIE BREAKERS Discord bot and its Python package.
 
-## Package layout
-Place the `bookie_breakers` folder in your deployment project root.
+## Run locally
 
-## Run
-Use `python -m bookie_breakers` after installing the required Discord Python library.
+Install dependencies and start the bot from the repository root:
 
-## Environment variables required by the code
-- DISCORD_TOKEN
-- HEAD_ADMIN_ID
-- VIP_ADMIN_ID
-- TALLY_FORM_URL
-- MAIN_GUILD_ID
-- MAIN_VIP_WINGS_CLIENT_ID
-- CONTACT_OWNER_CHANNEL_ID
-- MAIN_VIP_APPLICATION_CHANNEL_ID
-- VIP_GUILD_ID
-- VIP_CLIENT_ID
-- VIP_APPLICATION_CHANNEL_ID
+```bash
+pip install -r requirements.txt
+python -m bookie_breakers
+```
+
+The bot loads its configuration from environment variables. Never put the Discord token or other credentials in source files or commit them to GitHub.
+
+### Required environment variables
+
+- `DISCORD_TOKEN`
+- `HEAD_ADMIN_ID`
+- `VIP_ADMIN_ID`
+- `TALLY_FORM_URL`
+- `MAIN_GUILD_ID`
+- `MAIN_VIP_WINGS_CLIENT_ID`
+- `CONTACT_OWNER_CHANNEL_ID`
+- `MAIN_VIP_APPLICATION_CHANNEL_ID`
+- `VIP_GUILD_ID`
+- `VIP_CLIENT_ID`
+- `VIP_APPLICATION_CHANNEL_ID`
 
 Optional:
-- VIP_WINS_CHANNEL_ID
-- LOG_LEVEL
 
-Do not put your bot token in this archive, source files, or public GitHub. Add it as a secret/environment variable on your hosting provider.
+- `VIP_WINS_CHANNEL_ID`
+- `LOG_LEVEL`
 
-This is a source backup only. It does not include any other project files that were not uploaded here, such as dependency manifests or state files.
+## Deploy on Render
+
+1. In Render, create a **Background Worker** and connect this GitHub repository.
+2. Set the build command to:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Set the start command to:
+
+   ```bash
+   python -m bookie_breakers
+   ```
+
+4. Add all required environment variables listed above in the Render service's **Environment** settings. Add optional values if needed. Store `DISCORD_TOKEN` as a secret environment variable; do not add it to this repository.
+5. Deploy the worker and check its logs for startup/configuration errors.
+
+Use Render's free plan if it is available for your account and service type. Free-plan availability and behavior may change, and it does **not** guarantee 24/7 uptime. Choose a paid plan if continuous availability is required.
